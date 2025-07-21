@@ -169,6 +169,24 @@ body {
   color: var(--peach-dark);
   margin-top: 1rem;
 }
+#waste-log-form button[type="submit"] {
+  background: var(--peach-dark);
+  color: var(--text-light);
+  border: none;
+  border-radius: 20px;
+  padding: 0.7rem 2rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-top: 1rem;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(246, 126, 125, 0.10);
+  transition: background 0.2s, color 0.2s, transform 0.15s;
+}
+#waste-log-form button[type="submit"]:hover {
+  background: var(--peach-main);
+  color: var(--text-dark);
+  transform: scale(1.04);
+}
 @media (max-width: 800px) {
   .navbar {
     flex-direction: column;

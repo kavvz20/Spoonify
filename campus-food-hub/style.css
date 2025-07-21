@@ -519,6 +519,30 @@ body {
   transform: scale(1.04);
 }
 
+input[type="text"], input[type="password"], input[type="time"], input[type="number"], textarea, select {
+  width: 100%;
+  padding: 0.7rem 1rem;
+  border: 1.5px solid var(--peach-accent);
+  border-radius: 18px;
+  background: var(--peach-cream);
+  font-size: 1rem;
+  color: var(--text-dark);
+  margin-top: 0.3rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 8px rgba(246, 126, 125, 0.07);
+  transition: border 0.2s, box-shadow 0.2s;
+  outline: none;
+}
+input[type="text"]:focus, input[type="password"]:focus, input[type="time"]:focus, input[type="number"]:focus, textarea:focus, select:focus {
+  border: 2px solid var(--peach-dark);
+  box-shadow: 0 4px 16px rgba(246, 126, 125, 0.13);
+  background: #fff;
+}
+::placeholder {
+  color: #bfa08f;
+  opacity: 1;
+}
+
 /* Responsive */
 @media (max-width: 800px) {
   .dashboard-features {

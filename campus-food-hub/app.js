@@ -249,14 +249,12 @@ const adminPasswordField = document.getElementById('admin-password-field');
 const usernameField = document.getElementById('username-field');
 const signinNavLink = document.getElementById('signin-nav-link');
 function showModal() {
-  if (modal) modal.style.display = 'flex';
+  if (window.modal) window.modal.style.display = 'flex';
   document.body.style.overflow = 'hidden';
-  if (!isHome) document.querySelector('main').style.display = 'none';
 }
 function hideModal() {
-  if (modal) modal.style.display = 'none';
+  if (window.modal) window.modal.style.display = 'none';
   document.body.style.overflow = '';
-  if (!isHome) document.querySelector('main').style.display = '';
 }
 // QR Modal logic
 function showQRModal(user) {
@@ -343,34 +341,79 @@ function updateNavUser() {
   updateShowQRLink();
 }
 
-if (modal && form) {
-  form.role.forEach(radio => {
-    radio.addEventListener('change', e => {
-      if (e.target.value === 'admin') {
-        adminPasswordField.style.display = '';
-      } else {
-        adminPasswordField.style.display = 'none';
+document.addEventListener('DOMContentLoaded', function() {
+  // Initialize all DOM-dependent variables after DOM is ready
+  window.modal = document.getElementById('signin-modal');
+  window.form = document.getElementById('signin-form');
+  window.adminPasswordField = document.getElementById('admin-password-field');
+  window.signinNavLink = document.getElementById('signin-nav-link');
+  window.usernameField = document.getElementById('username-field');
+  const main = document.querySelector('main');
+
+  // Enforce sign-in protection
+  function enforceSignIn() {
+    const user = localStorage.getItem('cfh_user');
+    if (!user) {
+      if (window.modal) window.modal.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+      if (main) main.style.display = 'none';
+    } else {
+      if (window.modal) window.modal.style.display = 'none';
+      document.body.style.overflow = '';
+      if (main) main.style.display = '';
+    }
+  }
+
+  enforceSignIn();
+  updateNavUser();
+
+  // Attach form logic
+  if (window.modal && window.form) {
+    const radios = window.form.querySelectorAll('input[name="role"]');
+    radios.forEach(radio => {
+      radio.addEventListener('change', e => {
+        if (e.target.value === 'admin') {
+          if (window.adminPasswordField) window.adminPasswordField.style.display = '';
+        } else {
+          if (window.adminPasswordField) window.adminPasswordField.style.display = 'none';
+        }
+      });
+    });
+    window.form.addEventListener('submit', e => {
+      e.preventDefault();
+      const role = window.form.role.value;
+      const username = document.getElementById('signin-username').value.trim();
+      if (!username) return;
+      if (role === 'admin') {
+        const password = document.getElementById('signin-password').value;
+        if (username !== 'hackhungry' || password !== 'thapar') {
+          alert('Incorrect admin username or password.');
+          return;
+        }
+      }
+      localStorage.setItem('cfh_user', JSON.stringify({ username, role }));
+      if (window.modal) window.modal.style.display = 'none';
+      document.body.style.overflow = '';
+      if (main) main.style.display = '';
+      updateNavUser();
+      enforceSignIn();
+    });
+  }
+
+  // Patch sign-out to always enforce sign-in
+  if (window.signinNavLink) {
+    window.signinNavLink.addEventListener('click', function(e) {
+      const user = JSON.parse(localStorage.getItem('cfh_user') || 'null');
+      if (user) {
+        // Sign out
+        e.preventDefault();
+        localStorage.removeItem('cfh_user');
+        updateNavUser();
+        enforceSignIn();
       }
     });
-  });
-  form.addEventListener('submit', e => {
-    e.preventDefault();
-    const role = form.role.value;
-    const username = document.getElementById('signin-username').value.trim();
-    if (!username) return;
-    if (role === 'admin') {
-      const password = document.getElementById('signin-password').value;
-      if (username !== 'hackhungry' || password !== 'thapar') {
-        alert('Incorrect admin username or password.');
-        return;
-      }
-    }
-    localStorage.setItem('cfh_user', JSON.stringify({ username, role }));
-    hideModal();
-    updateNavUser();
-    location.reload();
-  });
-}
+  }
+});
 if (!isHome) {
   const user = localStorage.getItem('cfh_user');
   if (!user) {

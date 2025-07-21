@@ -21,8 +21,8 @@
         <li><a href="menu.html">Menu Feedback</a></li>
         <li><a href="waste.html">Waste Tracker</a></li>
         <li><a href="meal-cancel.html" class="active">Meal Cancel</a></li>
-        <li><a href="#" id="signin-nav-link" class="navbar-signin">Sign In</a></li>
         <li><a href="#" id="show-qr-link" style="display:none;">Show QR</a></li>
+        <li><a href="#" id="signin-nav-link" class="navbar-signin">Sign In</a></li>
       </ul>
     </nav>
   </header>
@@ -114,6 +114,7 @@
       document.getElementById('balance-message').textContent = "Current Balance: ₹" + userBalance;
     });
   </script>
+  <script src="qrcode.min.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

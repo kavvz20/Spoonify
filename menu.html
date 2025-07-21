@@ -183,12 +183,13 @@
   <script src="app.js"></script>
   <script src="voting.js"></script>
   <script>
-    document.getElementById('offer-btn').onclick = function() {
-      window.location.href = 'offer.html'; // Make sure offer.html exists
-    };
-    document.getElementById('cancel-btn').onclick = function() {
-      window.location.href = 'meal-cancel.html';
-    };
+    // Removed erroneous code that attached handlers to non-existent offer-btn and cancel-btn
+    // document.getElementById('offer-btn').onclick = function() {
+    //   window.location.href = 'offer.html'; // Make sure offer.html exists
+    // };
+    // document.getElementById('cancel-btn').onclick = function() {
+    //   window.location.href = 'meal-cancel.html';
+    // };
 
     // New code for Offer to Someone and Just Cancel buttons
     document.querySelectorAll('.offer-meal-btn').forEach(function(btn) {

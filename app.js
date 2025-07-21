@@ -82,8 +82,10 @@ if (window.location.pathname.endsWith('mealshare.html')) {
     if (adminUnused.length > 0) {
       const div = document.createElement('div');
       div.className = 'meals-list-item';
-      div.innerHTML = `<strong>Admin (Unused Portion)</strong> - Mess Hall<br>
-        <span>Available portions: <b id="admin-unused-count">${adminUnused.length}</b></span>`;
+      div.style.display = 'flex';
+      div.style.alignItems = 'center';
+      div.style.justifyContent = 'space-between';
+      div.innerHTML = `<span><strong style="color:#f67e7d;">Admin (Unused Portion)</strong> - Mess Hall <span style=\"margin-left:2.5rem;font-weight:500;\">Available portions: <b id=\"admin-unused-count\">${adminUnused.length}</b></span></span>`;
       const claimBtn = document.createElement('button');
       claimBtn.textContent = 'Claim Portion';
       claimBtn.className = 'claim-meal-btn';
@@ -115,9 +117,13 @@ if (window.location.pathname.endsWith('mealshare.html')) {
     otherMeals.forEach((meal, i) => {
       const div = document.createElement('div');
       div.className = 'meals-list-item';
-      div.innerHTML = `<strong>${meal.name || 'Anonymous'}</strong> - ${meal.location} at ${meal.time}`;
+      div.style.display = 'flex';
+      div.style.alignItems = 'center';
+      div.style.justifyContent = 'space-between';
+      // Use same structure and color as admin
+      div.innerHTML = `<span><strong style=\"color:#f67e7d;\">${meal.name || 'Anonymous'}</strong> - ${meal.location} at ${meal.time} <span style=\"margin-left:2.5rem;font-weight:500;\">Available portions: <b>1</b></span></span>`;
       const claimBtn = document.createElement('button');
-      claimBtn.textContent = 'Claim';
+      claimBtn.textContent = 'Claim Portion';
       claimBtn.className = 'claim-meal-btn';
       claimBtn.onclick = () => {
         const idx = meals.findIndex((m, idx2) => !m.fromWaste && idx2 === i);
@@ -509,23 +515,13 @@ document.addEventListener('DOMContentLoaded', function() {
       return;
     }
 
-    // Create meal entry
-    const mealDiv = document.createElement('div');
-    mealDiv.className = 'meal-entry';
-    mealDiv.innerHTML = `
-      <strong>Offered by:</strong> ${name}<br>
-      <strong>Pickup Time:</strong> ${time}<br>
-      <strong>Location:</strong> ${location}<br>
-      <button class="cancel-meal-btn">Cancel</button>
-    `;
+    // Add meal to localStorage
+    const meals = JSON.parse(localStorage.getItem('cfh_meals') || '[]');
+    meals.push({ name, time, location });
+    localStorage.setItem('cfh_meals', JSON.stringify(meals));
 
-    // Add cancel functionality
-    mealDiv.querySelector('.cancel-meal-btn').addEventListener('click', function() {
-      mealDiv.remove();
-    });
-
-    // Add to list
-    mealsList.prepend(mealDiv);
+    // Re-render meals list
+    if (typeof renderMeals === 'function') renderMeals();
 
     // Reset form
     offerForm.reset();

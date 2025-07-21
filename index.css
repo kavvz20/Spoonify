@@ -164,6 +164,25 @@ body {
   font-weight: bold;
   color: var(--peach-main);
 }
+
+.dashboard-feedback {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin: 2rem 0;
+  flex-wrap: wrap;
+}
+
+.dashboard-feedback .feature-card {
+  min-width: 220px;
+}
+
+.dashboard-feedback .feature-value {
+    font-size: 1.2rem;
+    font-weight: normal;
+    color: var(--text-dark);
+}
+
 .dashboard-links {
   display: flex;
   justify-content: center;

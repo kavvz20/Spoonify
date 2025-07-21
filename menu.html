@@ -59,7 +59,7 @@
           <li class="menu-card-item"><span class="menu-icon">🍞</span> Bread Butter</li>
           <li class="menu-card-item"><span class="menu-icon">☕</span> Tea</li>
         </ul>
-        <button class="cancel-meal-btn" id="cancel-breakfast-btn">Cancel My Breakfast</button>
+        <button class="cancel-meal-btn" id="cancel-breakfast-btn">Cancel/offer My Breakfast</button>
         <div class="cancel-options" id="cancel-breakfast-options" style="display:none;">
           <span>What would you like to do?</span>
           <button class="offer-meal-btn" data-meal="breakfast">Offer to Someone</button>
@@ -75,7 +75,7 @@
           <li class="menu-card-item"><span class="menu-icon">🍞</span> Roti</li>
           <li class="menu-card-item"><span class="menu-icon">🥗</span> Salad</li>
         </ul>
-        <button class="cancel-meal-btn" id="cancel-lunch-btn">Cancel My Lunch</button>
+        <button class="cancel-meal-btn" id="cancel-lunch-btn">Cancel/offer My Lunch</button>
         <div class="cancel-options" id="cancel-lunch-options" style="display:none;">
           <span>What would you like to do?</span>
           <button class="offer-meal-btn" data-meal="lunch">Offer to Someone</button>
@@ -91,19 +91,14 @@
           <li class="menu-card-item"><span class="menu-icon">🥒</span> Raita</li>
           <li class="menu-card-item"><span class="menu-icon">🍮</span> Gulab Jamun</li>
         </ul>
-        <button class="cancel-meal-btn" id="cancel-dinner-btn">Cancel My Dinner</button>
+        <button class="cancel-meal-btn" id="cancel-dinner-btn">Cancel/offer My Dinner</button>
         <div class="cancel-options" id="cancel-dinner-options" style="display:none;">
           <span>What would you like to do?</span>
           <button class="offer-meal-btn" data-meal="dinner">Offer to Someone </button>
           <button class="just-cancel-btn" data-meal="dinner">Just Cancel</button>
         </div>
       </div>
-      <div class="card menu-card" id="offered-meals-section">
-        <h3>Meals Offered by Others</h3>
-        <div id="offered-meals-list">
-          <!-- JS will populate offered meals here with Claim buttons -->
-        </div>
-      </div>
+      
       <form id="menu-feedback-form" class="card">
         <h3>Rate Today's Food</h3>
         <div class="rating-buttons">
@@ -124,9 +119,7 @@
           <!-- JS will render bar graph here -->
         </div>
       </div>
-      <div class="admin-link">
-        <a href="#" id="admin-view-link">Admin: View Top/Bottom Items</a>
-      </div>
+      
       <div class="menu-feedback-actions" style="margin-top: 1.5rem;">
         <button id="offer-btn" class="feature-link animated-card" style="margin-right: 1rem;">Offer</button>
         <button id="cancel-btn" class="feature-link animated-card">Cancel</button>

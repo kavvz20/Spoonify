@@ -73,33 +73,68 @@ if (window.location.pathname.endsWith('mealshare.html')) {
     const meals = getMeals();
     const list = document.getElementById('meals-list');
     list.innerHTML = '';
-    meals.forEach((meal, i) => {
+
+    // Group admin unused portions
+    const adminUnused = meals.filter(m => m.fromWaste);
+    const otherMeals = meals.filter(m => !m.fromWaste);
+
+    // Show admin unused portions as a single entry with count
+    if (adminUnused.length > 0) {
+      const div = document.createElement('div');
+      div.className = 'meals-list-item';
+      div.innerHTML = `<strong>Admin (Unused Portion)</strong> - Mess Hall<br>
+        <span>Available portions: <b id="admin-unused-count">${adminUnused.length}</b></span>`;
+      const claimBtn = document.createElement('button');
+      claimBtn.textContent = 'Claim Portion';
+      claimBtn.className = 'claim-meal-btn';
+      claimBtn.onclick = () => {
+        // Remove one unused portion meal
+        const idx = meals.findIndex(m => m.fromWaste);
+        if (idx !== -1) {
+          meals.splice(idx, 1);
+          setMeals(meals);
+
+          // --- Decrement total wasted food ---
+          let totalWaste = parseInt(localStorage.getItem('cfh_total_waste') || '0', 10);
+          if (totalWaste > 0) {
+            totalWaste -= 1;
+            localStorage.setItem('cfh_total_waste', totalWaste);
+          }
+          // --- End decrement ---
+
+          renderMeals();
+          // Notify other tabs/pages
+          window.dispatchEvent(new Event('storage'));
+        }
+      };
+      div.appendChild(claimBtn);
+      list.appendChild(div);
+    }
+
+    // Render other meals as usual
+    otherMeals.forEach((meal, i) => {
       const div = document.createElement('div');
       div.className = 'meals-list-item';
       div.innerHTML = `<strong>${meal.name || 'Anonymous'}</strong> - ${meal.location} at ${meal.time}`;
-      if (user && (user.role === 'admin' || user.username === meal.username)) {
-        const cancelBtn = document.createElement('button');
-        cancelBtn.textContent = 'Claim';
-        cancelBtn.className = 'cancel-meal-btn';
-        cancelBtn.onclick = () => {
-          meals.splice(i, 1);
+      const claimBtn = document.createElement('button');
+      claimBtn.textContent = 'Claim';
+      claimBtn.className = 'claim-meal-btn';
+      claimBtn.onclick = () => {
+        const idx = meals.findIndex((m, idx2) => !m.fromWaste && idx2 === i);
+        if (idx !== -1) {
+          meals.splice(idx, 1);
           setMeals(meals);
           renderMeals();
-        };
-        div.appendChild(cancelBtn);
-      } else {
-        const claimBtn = document.createElement('button');
-        claimBtn.textContent = 'Claim';
-        claimBtn.className = 'claim-meal-btn';
-        claimBtn.onclick = () => {
-          meals.splice(i, 1);
-          setMeals(meals);
-          renderMeals();
-        };
-        div.appendChild(claimBtn);
-      }
+        }
+      };
+      div.appendChild(claimBtn);
       list.appendChild(div);
     });
+
+    // If no meals at all
+    if (meals.length === 0) {
+      list.innerHTML = "<div>No available meals right now.</div>";
+    }
   }
   document.addEventListener('DOMContentLoaded', renderMeals);
   window.addEventListener('storage', renderMeals);
@@ -108,55 +143,12 @@ if (window.location.pathname.endsWith('menu.html')) {
   function handleCancelMeal(mealType) {
     document.getElementById(`cancel-${mealType}-options`).style.display = '';
   }
-  function handleOfferMeal(mealType) {
-    const user = JSON.parse(localStorage.getItem('cfh_user') || 'null');
-    const mealNames = {
-      breakfast: 'Breakfast',
-      lunch: 'Lunch',
-      dinner: 'Dinner'
-    };
-    const meals = JSON.parse(localStorage.getItem('cfh_meals') || '[]');
-    meals.push({
-      name: user.username,
-      username: user.username,
-      location: 'Mess Hall',
-      time: mealNames[mealType] || mealType
-    });
-    localStorage.setItem('cfh_meals', JSON.stringify(meals));
-    document.getElementById(`cancel-${mealType}-options`).style.display = 'none';
-    window.location.href = 'mealshare.html';
-  }
-  function handleJustCancel(mealType) {
-    const user = JSON.parse(localStorage.getItem('cfh_user') || 'null');
-    const cancelled = JSON.parse(localStorage.getItem('cfh_cancelled_meals') || '{}');
-    if (!cancelled[user.username]) cancelled[user.username] = {};
-    cancelled[user.username][mealType] = true;
-    localStorage.setItem('cfh_cancelled_meals', JSON.stringify(cancelled));
-    document.getElementById(`cancel-${mealType}-options`).style.display = 'none';
-    window.location.href = 'meal-cancel.html';
-  }
-  function updateCancelMealButtons() {
-    const user = JSON.parse(localStorage.getItem('cfh_user') || 'null');
-    const isAdmin = user && user.role === 'admin';
-    ['breakfast','lunch','dinner'].forEach(mealType => {
-      const btn = document.getElementById(`cancel-${mealType}-btn`);
-      const opts = document.getElementById(`cancel-${mealType}-options`);
-      if (btn) btn.style.display = isAdmin ? 'none' : '';
-      if (opts) opts.style.display = 'none';
-    });
-  }
   document.addEventListener('DOMContentLoaded', () => {
     ['breakfast','lunch','dinner'].forEach(mealType => {
       const btn = document.getElementById(`cancel-${mealType}-btn`);
       if (btn) btn.onclick = () => handleCancelMeal(mealType);
-      const offerBtn = document.querySelector(`.offer-meal-btn[data-meal="${mealType}"]`);
-      if (offerBtn) offerBtn.onclick = () => handleOfferMeal(mealType);
-      const justCancelBtn = document.querySelector(`.just-cancel-btn[data-meal="${mealType}"]`);
-      if (justCancelBtn) justCancelBtn.onclick = () => handleJustCancel(mealType);
     });
   });
-  document.addEventListener('DOMContentLoaded', updateCancelMealButtons);
-  window.addEventListener('storage', updateCancelMealButtons);
 }
 if (window.location.pathname.endsWith('admin.html')) {
   function renderCancelledMeals() {
@@ -491,4 +483,73 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
-// ...existing code...
+// Add this inside your waste log form submit handler (for waste.html)
+const wasteLogForm = document.getElementById('waste-log-form');
+if (wasteLogForm) {
+  wasteLogForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const user = JSON.parse(localStorage.getItem('cfh_user') || 'null');
+    if (user && user.role === 'admin') {
+      const input = document.getElementById('waste-portions');
+      const value = parseInt(input.value, 10) || 0;
+      let totalWaste = parseInt(localStorage.getItem('cfh_total_waste') || '0', 10);
+      totalWaste += value;
+      localStorage.setItem('cfh_total_waste', totalWaste);
+
+      // --- Add unused portions as available meals ---
+      if (value > 0) {
+        const meals = JSON.parse(localStorage.getItem('cfh_meals') || '[]');
+        const now = new Date();
+        for (let i = 0; i < value; i++) {
+          meals.push({
+            name: "Admin (Unused Portion)",
+            username: user.username,
+            location: "Mess Hall", // You can customize or prompt for location
+            time: now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
+            fromWaste: true
+          });
+        }
+        localStorage.setItem('cfh_meals', JSON.stringify(meals));
+      }
+      // --- End block ---
+
+      input.value = '';
+    }
+    location.reload(); // Refresh the site after logging waste
+  });
+}
+
+// Dummy waste data for the last 7 days (portions wasted per day)
+const wasteData = [
+  { date: 'Mon', wasted: 12 },
+  { date: 'Tue', wasted: 8 },
+  { date: 'Wed', wasted: 15 },
+  { date: 'Thu', wasted: 6 },
+  { date: 'Fri', wasted: 10 },
+  { date: 'Sat', wasted: 5 },
+  { date: 'Sun', wasted: 7 }
+];
+
+// Calculate total meals saved (assume 100 portions per day, saved = not wasted)
+const totalMealsSaved = wasteData.reduce((sum, day) => sum + (100 - day.wasted), 0);
+
+// Render bar chart
+function renderWasteChart() {
+  const chartDiv = document.getElementById('waste-stats-chart');
+  chartDiv.innerHTML = `
+    <div style="display:flex;align-items:end;height:120px;gap:8px;">
+      ${wasteData.map(day => `
+        <div style="display:flex;flex-direction:column;align-items:center;">
+          <div style="background:#e74c3c;width:24px;height:${day.wasted * 2}px;border-radius:4px 4px 0 0;"></div>
+          <span style="font-size:12px;">${day.date}</span>
+        </div>
+      `).join('')}
+    </div>
+    <div style="font-size:12px;color:#888;margin-top:4px;">Red bars = wasted portions</div>
+  `;
+  document.getElementById('total-meals-saved').textContent = totalMealsSaved;
+}
+
+// Call on page load
+document.addEventListener('DOMContentLoaded', renderWasteChart);
+

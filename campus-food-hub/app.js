@@ -404,3 +404,48 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 });
+
+// ...existing code...
+
+document.addEventListener('DOMContentLoaded', function() {
+  const offerForm = document.getElementById('offer-meal-form');
+  const mealsList = document.getElementById('meals-list');
+
+  offerForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    // Get form values
+    const name = document.getElementById('offer-name').value.trim() || 'Anonymous';
+    const time = document.getElementById('offer-time').value;
+    const location = document.getElementById('offer-location').value.trim();
+
+    // Simple validation
+    if (!time || !location) {
+      alert('Please fill in all required fields.');
+      return;
+    }
+
+    // Create meal entry
+    const mealDiv = document.createElement('div');
+    mealDiv.className = 'meal-entry';
+    mealDiv.innerHTML = `
+      <strong>Offered by:</strong> ${name}<br>
+      <strong>Pickup Time:</strong> ${time}<br>
+      <strong>Location:</strong> ${location}<br>
+      <button class="cancel-meal-btn">Cancel</button>
+    `;
+
+    // Add cancel functionality
+    mealDiv.querySelector('.cancel-meal-btn').addEventListener('click', function() {
+      mealDiv.remove();
+    });
+
+    // Add to list
+    mealsList.prepend(mealDiv);
+
+    // Reset form
+    offerForm.reset();
+  });
+});
+
+// ...existing code...

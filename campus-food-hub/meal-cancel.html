@@ -10,38 +10,45 @@
   <header class="main-header">
     <nav class="navbar">
       <div class="navbar-logo">Spoonify</div>
+      <button id="hamburger-btn" aria-label="Open navigation" style="display:none;">
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+      </button>
       <ul id="nav-links" class="navbar-links">
         <li><a href="index.html">Dashboard</a></li>
         <li><a href="mealshare.html">MealShare</a></li>
         <li><a href="menu.html">Menu Feedback</a></li>
         <li><a href="waste.html">Waste Tracker</a></li>
-        <li><a href="#" id="signin-nav-link" class="navbar-signin">Sign In</a></li>        <!-- Sign In Modal -->
-        <div id="signin-modal" class="modal-overlay" style="display:none;">
-          <div class="modal-card">
-            <form id="signin-form">
-              <h2>Sign In</h2>
-              <label>
-                Username:
-                <input type="text" id="signin-username" required>
-              </label>
-              <div>
-                <label><input type="radio" name="role" value="user" checked> User</label>
-                <label><input type="radio" name="role" value="admin"> Admin</label>
-              </div>
-              <div id="admin-password-field" style="display:none;">
-                <label>
-                  Admin Password:
-                  <input type="password" id="signin-password">
-                </label>
-              </div>
-              <button type="submit">Sign In</button>
-            </form>
-          </div>
-        </div>
         <li><a href="meal-cancel.html" class="active">Meal Cancel</a></li>
+        <li><a href="#" id="signin-nav-link" class="navbar-signin">Sign In</a></li>
+        <li><a href="#" id="show-qr-link" style="display:none;">Show QR</a></li>
       </ul>
     </nav>
   </header>
+  <!-- Sign In Modal -->
+  <div id="signin-modal" class="modal-overlay" style="display:none;">
+    <div class="modal-card">
+      <form id="signin-form">
+        <h2>Sign In</h2>
+        <label>
+          Username:
+          <input type="text" id="signin-username" required>
+        </label>
+        <div>
+          <label><input type="radio" name="role" value="user" checked> User</label>
+          <label><input type="radio" name="role" value="admin"> Admin</label>
+        </div>
+        <div id="admin-password-field" style="display:none;">
+          <label>
+            Admin Password:
+            <input type="password" id="signin-password">
+          </label>
+        </div>
+        <button type="submit">Sign In</button>
+      </form>
+    </div>
+  </div>
   <main>
     <section class="hero-section">
       <div class="hero-content">
@@ -107,6 +114,6 @@
       document.getElementById('balance-message').textContent = "Current Balance: ₹" + userBalance;
     });
   </script>
-    <script src="app.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>

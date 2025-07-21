@@ -195,6 +195,74 @@ body {
   background: var(--peach-dark);
   color: var(--text-light);
 }
+
+.meal-feedback-section {
+  border-top: 1px solid var(--peach-accent);
+  padding-top: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.meal-feedback-section:first-child {
+  border-top: none;
+  margin-top: 0;
+  padding-top: 0;
+}
+
+.rating-buttons {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.rating-buttons button {
+  background: var(--peach-cream);
+  border: 1px solid var(--peach-accent);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.rating-buttons button:hover {
+  transform: scale(1.1);
+  border-color: var(--peach-dark);
+}
+
+.rating-buttons button.selected {
+  background: var(--peach-main);
+  border-color: var(--peach-dark);
+  transform: scale(1.1);
+}
+
+.menu-suggestion {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid var(--peach-accent);
+  border-radius: 8px;
+  background: var(--peach-cream);
+}
+
+#menu-feedback-form button[type="submit"] {
+    background: var(--peach-dark);
+    color: var(--text-light);
+    border: none;
+    border-radius: 20px;
+    padding: 0.7rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    display: block;
+    margin: 1.5rem auto 0;
+}
+
+#menu-feedback-form button[type="submit"]:hover {
+    background: var(--peach-main);
+    color: var(--text-dark);
+}
+
 #offered-meals-section {
   background: var(--peach-light);
   border-radius: 14px;

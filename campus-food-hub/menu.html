@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spoonify - Menu Feedback</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="signin-modal" class="modal-overlay" style="display:none;">
+    <div class="modal-card">
+      <h2>Sign In</h2>
+      <form id="signin-form">
+        <label>
+          <input type="radio" name="role" value="user" checked> User
+        </label>
+        <label>
+          <input type="radio" name="role" value="admin"> Admin
+        </label>
+        <div id="username-field">
+          <input type="text" id="signin-username" placeholder="Username" required maxlength="30">
+        </div>
+        <div id="admin-password-field" style="display:none;">
+          <input type="password" id="signin-password" placeholder="Admin Password" maxlength="30">
+        </div>
+        <button type="submit">Sign In</button>
+      </form>
+    </div>
+  </div>
+  <header class="main-header">
+    <nav class="navbar">
+      <div class="navbar-logo">Spoonify</div>
+      <button id="hamburger-btn" aria-label="Open navigation" style="display:none;">
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+      </button>
+      <ul id="nav-links" class="navbar-links">
+        <li><a href="index.html">Dashboard</a></li>
+        <li><a href="mealshare.html">MealShare</a></li>
+        <li><a href="menu.html" class="active">Menu Feedback</a></li>
+        <li><a href="waste.html">Waste Tracker</a></li>
+        <li><a href="#" id="signin-nav-link" class="navbar-signin">Sign In</a></li>
+        <li><a href="#" id="show-qr-link" style="display:none;">Show QR</a></li>
+        
+        <li><a href="meal-cancel.html">Meal Cancel</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <section class="menu-feedback">
+      <h2>Menu Feedback & Voting</h2>
+      <div class="card menu-card">
+        <h3>Breakfast</h3>
+        <ul class="menu-list">
+          <li class="menu-card-item"><span class="menu-icon">🍚</span> Poha</li>
+          <li class="menu-card-item"><span class="menu-icon">🥣</span> Upma</li>
+          <li class="menu-card-item"><span class="menu-icon">🥟</span> Samosa</li>
+          <li class="menu-card-item"><span class="menu-icon">🍞</span> Bread Butter</li>
+          <li class="menu-card-item"><span class="menu-icon">☕</span> Tea</li>
+        </ul>
+        <button class="cancel-meal-btn" id="cancel-breakfast-btn">Cancel My Breakfast</button>
+        <div class="cancel-options" id="cancel-breakfast-options" style="display:none;">
+          <span>What would you like to do?</span>
+          <button class="offer-meal-btn" data-meal="breakfast">Offer to Someone</button>
+          <button class="just-cancel-btn" data-meal="breakfast">Just Cancel</button>
+        </div>
+      </div>
+      <div class="card menu-card">
+        <h3>Lunch</h3>
+        <ul class="menu-list">
+          <li class="menu-card-item"><span class="menu-icon">🍛</span> Dal Tadka</li>
+          <li class="menu-card-item"><span class="menu-icon">🥦</span> Mixed Veg</li>
+          <li class="menu-card-item"><span class="menu-icon">🍚</span> Rice</li>
+          <li class="menu-card-item"><span class="menu-icon">🍞</span> Roti</li>
+          <li class="menu-card-item"><span class="menu-icon">🥗</span> Salad</li>
+        </ul>
+        <button class="cancel-meal-btn" id="cancel-lunch-btn">Cancel My Lunch</button>
+        <div class="cancel-options" id="cancel-lunch-options" style="display:none;">
+          <span>What would you like to do?</span>
+          <button class="offer-meal-btn" data-meal="lunch">Offer to Someone</button>
+          <button class="just-cancel-btn" data-meal="lunch">Just Cancel</button>
+        </div>
+      </div>
+      <div class="card menu-card">
+        <h3>Dinner</h3>
+        <ul class="menu-list">
+          <li class="menu-card-item"><span class="menu-icon">🍲</span> Paneer Butter Masala</li>
+          <li class="menu-card-item"><span class="menu-icon">🍚</span> Jeera Rice</li>
+          <li class="menu-card-item"><span class="menu-icon">🍞</span> Naan</li>
+          <li class="menu-card-item"><span class="menu-icon">🥒</span> Raita</li>
+          <li class="menu-card-item"><span class="menu-icon">🍮</span> Gulab Jamun</li>
+        </ul>
+        <button class="cancel-meal-btn" id="cancel-dinner-btn">Cancel My Dinner</button>
+        <div class="cancel-options" id="cancel-dinner-options" style="display:none;">
+          <span>What would you like to do?</span>
+          <button class="offer-meal-btn" data-meal="dinner">Offer to Someone </button>
+          <button class="just-cancel-btn" data-meal="dinner">Just Cancel</button>
+        </div>
+      </div>
+      <div class="card menu-card" id="offered-meals-section">
+        <h3>Meals Offered by Others</h3>
+        <div id="offered-meals-list">
+          <!-- JS will populate offered meals here with Claim buttons -->
+        </div>
+      </div>
+      <form id="menu-feedback-form" class="card">
+        <h3>Rate Today's Food</h3>
+        <div class="rating-buttons">
+          <button type="button" data-rating="1">😞</button>
+          <button type="button" data-rating="2">😐</button>
+          <button type="button" data-rating="3">😊</button>
+          <button type="button" data-rating="4">😋</button>
+          <button type="button" data-rating="5">🤩</button>
+        </div>
+        <label>Suggestion (max 100 chars):
+          <input type="text" id="menu-suggestion" maxlength="100" placeholder="How can we improve?">
+        </label>
+        <button type="submit">Submit Feedback</button>
+      </form>
+      <div class="card">
+        <h3>Voting Results</h3>
+        <div id="menu-vote-results">
+          <!-- JS will render bar graph here -->
+        </div>
+      </div>
+      <div class="admin-link">
+        <a href="#" id="admin-view-link">Admin: View Top/Bottom Items</a>
+      </div>
+      <div class="menu-feedback-actions" style="margin-top: 1.5rem;">
+        <button id="offer-btn" class="feature-link animated-card" style="margin-right: 1rem;">Offer</button>
+        <button id="cancel-btn" class="feature-link animated-card">Cancel</button>
+      </div>
+    </section>
+  </main>
+  <div id="qr-modal" class="modal-overlay" style="display: none;">
+    <div class="modal-card">
+      <h2>Your QR Code</h2>
+      <canvas id="user-qr-canvas"></canvas>
+      <button id="close-qr-btn">Close</button>
+    </div>
+  </div>
+  <script src="qrcode.min.js"></script>
+  <script src="app.js"></script>
+  <script>
+    document.getElementById('offer-btn').onclick = function() {
+      window.location.href = 'offer.html'; // Make sure offer.html exists
+    };
+    document.getElementById('cancel-btn').onclick = function() {
+      window.location.href = 'meal-cancel.html';
+    };
+
+    // New code for Offer to Someone and Just Cancel buttons
+    document.querySelectorAll('.offer-meal-btn').forEach(function(btn) {
+      btn.onclick = function() {
+        window.location.href = 'mealshare.html';
+      };
+    });
+    document.querySelectorAll('.just-cancel-btn').forEach(function(btn) {
+      btn.onclick = function() {
+        window.location.href = 'meal-cancel.html';
+      };
+    });
+  </script>
+</body>
+</html>

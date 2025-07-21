@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spoonify - Admin Portal</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="main-header">
+    <nav class="navbar">
+      <div class="navbar-logo">Spoonify</div>
+      <button id="hamburger-btn" aria-label="Open navigation" style="display:none;">
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+      </button>
+      <ul id="nav-links" class="navbar-links">
+        <li><a href="index.html">Dashboard</a></li>
+        <li><a href="mealshare.html">MealShare</a></li>
+        <li><a href="menu.html">Menu Feedback</a></li>
+        <li><a href="waste.html">Waste Tracker</a></li>
+        <li><a href="admin.html" class="active">Admin Portal</a></li>
+        <li><a href="#" id="signin-nav-link" class="navbar-signin">Sign In</a></li>
+        <li><a href="#" id="show-qr-link" style="display:none;">Show QR</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <section class="admin-cancelled-meals">
+      <div class="card animated-card">
+        <h2>Cancelled Meals Overview</h2>
+        <ul>
+          <li>Breakfast: <span id="cancelled-breakfast-count">0</span></li>
+          <li>Lunch: <span id="cancelled-lunch-count">0</span></li>
+          <div id="cancelled-lunch-list"></div>
+          <li>Dinner: <span id="cancelled-dinner-count">0</span></li>
+          <div id="cancelled-dinner-list"></div>
+        </ul>
+      </div>
+    </section>
+  </main>
+  <div id="qr-modal" class="modal-overlay" style="display: none;">
+    <div class="modal-card">
+      <h2>Your QR Code</h2>
+      <canvas id="user-qr-canvas"></canvas>
+      <button id="close-qr-btn">Close</button>
+    </div>
+  </div>
+  <script src="qrcode.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html> 

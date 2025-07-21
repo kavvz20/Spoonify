@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spoonify - MealShare</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="signin-modal" class="modal-overlay" style="display:none;">
+    <div class="modal-card">
+      <h2>Sign In</h2>
+      <form id="signin-form">
+        <label>
+          <input type="radio" name="role" value="user" checked> User
+        </label>
+        <label>
+          <input type="radio" name="role" value="admin"> Admin
+        </label>
+        <div id="username-field">
+          <input type="text" id="signin-username" placeholder="Username" required maxlength="30">
+        </div>
+        <div id="admin-password-field" style="display:none;">
+          <input type="password" id="signin-password" placeholder="Admin Password" maxlength="30">
+        </div>
+        <button type="submit">Sign In</button>
+      </form>
+    </div>
+  </div>
+  <header class="main-header">
+    <nav class="navbar">
+      <div class="navbar-logo">Spoonify</div>
+      <button id="hamburger-btn" aria-label="Open navigation" style="display:none;">
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+      </button>
+      <ul id="nav-links" class="navbar-links">
+        <li><a href="index.html">Dashboard</a></li>
+        <li><a href="mealshare.html" class="active">MealShare</a></li>
+        <li><a href="menu.html">Menu Feedback</a></li>
+        <li><a href="waste.html">Waste Tracker</a></li>
+        <li><a href="#" id="signin-nav-link" class="navbar-signin">Sign In</a></li>
+        <li><a href="#" id="show-qr-link" style="display:none;">Show QR</a></li>
+        <li><a href="meal-cancel.html">Meal Cancel</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <section class="mealshare">
+      <h2>Offer or Claim a Meal</h2>
+      <form id="offer-meal-form" class="card animated-card">
+        <h3>Offer a Meal</h3>
+        <label>Name (optional): <input type="text" id="offer-name" maxlength="30" placeholder="Your name or leave blank for anonymous"></label>
+        <label>Pickup Time: <input type="time" id="offer-time" required></label>
+        <label>Location: <input type="text" id="offer-location" maxlength="50" required placeholder="e.g. Mess Hall, Hostel Gate"></label>
+        <button class="offer-meal-main-btn">Offer a Meal</button>
+        <div class="form-note">You can offer anonymously. Your name will not be shown if left blank.</div>
+      </form>
+      <div class="card animated-card">
+        <h3>Available Meals</h3>
+        <div id="meals-list" class="meals-list">
+          <!-- JS will populate available meals here. Each meal should have a Cancel button if offered by the logged-in user or if admin. -->
+        </div>
+        <div class="safety-note">Please meet in public places and follow campus safety guidelines when claiming a meal.</div>
+      </div>
+    </section>
+  </main>
+  <div id="qr-modal" class="modal-overlay" style="display: none;">
+    <div class="modal-card">
+      <h2>Your QR Code</h2>
+      <canvas id="user-qr-canvas"></canvas>
+      <button id="close-qr-btn">Close</button>
+    </div>
+  </div>
+  <script src="qrcode.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

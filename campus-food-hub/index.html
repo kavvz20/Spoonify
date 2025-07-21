@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spoonify - Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="main-header">
+    <nav class="navbar">
+      <div class="navbar-logo">Spoonify</div>
+      <button id="hamburger-btn" aria-label="Open navigation" style="display:none;">
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+      </button>
+      <ul id="nav-links" class="navbar-links">
+        <li><a href="index.html" class="active">Dashboard</a></li>
+        <li><a href="mealshare.html">MealShare</a></li>
+        <li><a href="menu.html">Menu Feedback</a></li>
+        <li><a href="waste.html">Waste Tracker</a></li>
+        <li><a href="#" id="signin-nav-link" class="navbar-signin">Sign In</a></li>
+        <li><a href="meal-cancel.html">Meal Cancel</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <section class="hero-section">
+      <div class="hero-content">
+        
+        <h1 class="hero-title">Welcome to  Spoonify</h1>
+        <p class="hero-subtitle">Smart, sustainable, and social mess management for your campus.</p>
+        <a href="mealshare.html" class="hero-cta">Get Started</a>
+      </div>
+    </section>
+    <section class="dashboard-features">
+      <div class="feature-card" id="feature-meals-shared">
+        <div class="feature-icon">🍽️</div>
+        <div class="feature-title">Meals Shared</div>
+        <div class="feature-value" id="stat-meals-shared">0</div>
+      </div>
+      <div class="feature-card" id="feature-food-saved">
+        <div class="feature-icon">🥗</div>
+        <div class="feature-title">Food Saved</div>
+        <div class="feature-value" id="stat-food-saved">0</div>
+      </div>
+      <div class="feature-card" id="feature-menu-rating">
+        <div class="feature-icon">⭐</div>
+        <div class="feature-title">Today's Menu Rating</div>
+        <div class="feature-value" id="stat-menu-rating">-</div>
+      </div>
+    </section>
+    <div class="dashboard-links">
+      <a href="mealshare.html" class="feature-link animated-card">Offer/Claim Meal</a>
+      <a href="menu.html" class="feature-link animated-card">Menu Feedback</a>
+      <a href="waste.html" class="feature-link animated-card">Waste Tracker</a>
+      <a href="meal-cancel.html" class="feature-link animated-card">Cancel Meal</a>
+    </div>
+  </main>
+  <div id="qr-modal" class="modal-overlay" style="display: none;">
+    <div class="modal-card">
+      <h2>Your QR Code</h2>
+      <canvas id="user-qr-canvas"></canvas>
+      <button id="close-qr-btn">Close</button>
+    </div>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>

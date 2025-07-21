@@ -1,0 +1,632 @@
+/* Peach Theme */
+
+:root {
+  --peach-main: #ffb997;
+  --peach-light: #ffe5d9;
+  --peach-dark: #f67e7d;
+  --peach-accent: #f6ae99;
+  --peach-cream: #fff1e6;
+  --text-dark: #4e342e;
+  --text-light: #fff;
+}
+
+body {
+  background: var(--peach-cream);
+  color: var(--text-dark);
+  font-family: 'Segoe UI', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.main-header {
+  background: linear-gradient(90deg, var(--peach-main), var(--peach-accent));
+  color: var(--text-light);
+  box-shadow: 0 2px 8px rgba(246, 126, 125, 0.08);
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1rem;
+}
+
+.navbar-logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: white;
+  z-index: 201;
+  position: relative;
+  padding: 0 3px;
+  background: transparent;
+}
+
+.navbar-links {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar-links li a {
+  color: var(--text-light);
+  text-decoration: none;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  transition: background 0.2s;
+}
+
+.navbar-links li a.active,
+.navbar-links li a:hover {
+  background: var(--peach-dark);
+}
+
+.navbar-signin {
+  background: var(--peach-light);
+  color: var(--peach-dark) !important;
+  border-radius: 20px;
+  padding: 0.5rem 1.2rem;
+  font-weight: bold;
+  transition: background 0.2s, color 0.2s;
+}
+
+.navbar-signin:hover {
+  background: var(--peach-dark);
+  color: var(--text-light) !important;
+}
+
+.hero-section {
+  background: linear-gradient(120deg, var(--peach-light) 60%, var(--peach-main) 100%);
+  padding: 3rem 0 2rem 0;
+  text-align: center;
+}
+
+.hero-title {
+  font-size: 2.5rem;
+  color: var(--peach-dark);
+  margin-bottom: 0.5rem;
+}
+
+.hero-subtitle {
+  font-size: 1.2rem;
+  color: var(--text-dark);
+  margin-bottom: 2rem;
+}
+
+.hero-cta {
+  background: var(--peach-dark);
+  color: var(--text-light);
+  padding: 0.8rem 2rem;
+  border-radius: 30px;
+  font-size: 1.1rem;
+  text-decoration: none;
+  font-weight: bold;
+  box-shadow: 0 2px 8px rgba(246, 126, 125, 0.12);
+  transition: background 0.2s;
+}
+
+.hero-cta:hover {
+  background: var(--peach-main);
+  color: var(--text-dark);
+}
+
+.hero-utensils {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.2rem;
+}
+
+.hero-utensils svg {
+  max-width: 90px;
+  height: auto;
+  display: block;
+}
+
+.dashboard-features {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin: 2rem 0;
+  flex-wrap: wrap;
+}
+
+.feature-card {
+  background: var(--peach-light);
+  border-radius: 18px;
+  box-shadow: 0 2px 8px rgba(246, 126, 125, 0.10);
+  padding: 1.5rem 2rem;
+  text-align: center;
+  min-width: 180px;
+  margin-bottom: 1rem;
+}
+
+.feature-icon {
+  font-size: 2.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.feature-title {
+  font-size: 1.1rem;
+  color: var(--peach-dark);
+  margin-bottom: 0.3rem;
+}
+
+.feature-value {
+  font-size: 1.7rem;
+  font-weight: bold;
+  color: var(--peach-main);
+}
+
+.dashboard-links {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+  flex-wrap: wrap;
+}
+
+.feature-link {
+  background: var(--peach-main);
+  color: var(--text-light);
+  padding: 1rem 2rem;
+  border-radius: 25px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.1rem;
+  box-shadow: 0 2px 8px rgba(246, 126, 125, 0.10);
+  transition: background 0.2s, color 0.2s, transform 0.2s;
+}
+
+.feature-link:hover {
+  background: var(--peach-dark);
+  color: var(--text-light);
+  transform: translateY(-3px) scale(1.03);
+}
+
+.animated-card {
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.animated-card:hover {
+  box-shadow: 0 6px 24px rgba(246, 126, 125, 0.18);
+  transform: translateY(-5px) scale(1.05);
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(255, 185, 151, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-card {
+  background: var(--peach-cream);
+  border-radius: 18px;
+  padding: 2rem 2.5rem;
+  box-shadow: 0 2px 16px rgba(246, 126, 125, 0.18);
+  text-align: center;
+}
+
+#close-qr-btn {
+  background: var(--peach-dark);
+  color: var(--text-light);
+  border: none;
+  border-radius: 20px;
+  padding: 0.6rem 1.5rem;
+  font-size: 1rem;
+  margin-top: 1.2rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+#close-qr-btn:hover {
+  background: var(--peach-main);
+  color: var(--text-dark);
+}
+
+/* Menu Feedback Section */
+.menu-feedback {
+  max-width: 900px;
+  margin: 2.5rem auto;
+  padding: 0 1rem;
+}
+
+.menu-card {
+  background: var(--peach-light);
+  border-radius: 18px;
+  box-shadow: 0 2px 8px rgba(246, 126, 125, 0.10);
+  padding: 1.5rem 2rem;
+  margin-bottom: 2rem;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.menu-card:hover {
+  box-shadow: 0 6px 24px rgba(246, 126, 125, 0.18);
+  transform: translateY(-4px) scale(1.02);
+}
+
+.menu-card h3 {
+  color: var(--peach-dark);
+  margin-bottom: 1rem;
+  font-size: 1.3rem;
+  letter-spacing: 0.5px;
+}
+
+.menu-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.2rem 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.1rem;
+}
+
+.menu-card-item {
+  background: var(--peach-cream);
+  border-radius: 12px;
+  padding: 0.6rem 1.2rem;
+  font-size: 1.08rem;
+  color: var(--text-dark);
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  box-shadow: 0 1px 4px rgba(246, 126, 125, 0.08);
+  margin-bottom: 0.3rem;
+}
+
+.menu-icon {
+  font-size: 1.3rem;
+}
+
+.cancel-meal-btn {
+  background: var(--peach-main);
+  color: var(--text-light);
+  border: none;
+  border-radius: 20px;
+  padding: 0.5rem 1.3rem;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-top: 0.7rem;
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.cancel-meal-btn:hover {
+  background: var(--peach-dark);
+  color: var(--text-light);
+}
+
+.cancel-options {
+  background: var(--peach-cream);
+  border-radius: 12px;
+  padding: 1rem 1.2rem;
+  margin-top: 0.5rem;
+  box-shadow: 0 1px 6px rgba(246, 126, 125, 0.10);
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.offer-meal-btn,
+.just-cancel-btn {
+  background: var(--peach-main);
+  color: var(--text-light);
+  border: none;
+  border-radius: 18px;
+  padding: 0.5rem 1.2rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  margin-right: 0.7rem;
+  transition: background 0.2s, color 0.2s;
+}
+
+.offer-meal-btn:hover,
+.just-cancel-btn:hover {
+  background: var(--peach-dark);
+  color: var(--text-light);
+}
+
+#offered-meals-section {
+  background: var(--peach-light);
+  border-radius: 14px;
+  padding: 1.2rem 1.5rem;
+  margin-bottom: 2rem;
+}
+
+#offered-meals-list {
+  margin-top: 0.7rem;
+}
+
+.menu-feedback-actions {
+  display: flex;
+  gap: 1.2rem;
+  justify-content: flex-end;
+}
+
+.menu-feedback-actions .feature-link {
+  font-size: 1rem;
+  padding: 0.6rem 1.5rem;
+}
+
+/* Voting Section Styles */
+.rating-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1.2rem;
+  margin: 1rem 0 1.5rem 0;
+}
+
+.rating-buttons button {
+  background: var(--peach-light);
+  border: 2px solid var(--peach-main);
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  font-size: 1.7rem;
+  cursor: pointer;
+  transition: background 0.2s, border 0.2s, transform 0.15s;
+  outline: none;
+}
+
+.rating-buttons button:hover,
+.rating-buttons button.selected {
+  background: var(--peach-main);
+  border-color: var(--peach-dark);
+  transform: scale(1.12);
+}
+
+#menu-feedback-form label {
+  display: block;
+  margin-bottom: 1rem;
+  color: var(--peach-dark);
+  font-weight: 500;
+}
+
+#menu-feedback-form input[type="text"] {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1.5px solid var(--peach-accent);
+  border-radius: 8px;
+  margin-top: 0.4rem;
+  font-size: 1rem;
+  background: var(--peach-cream);
+  color: var(--text-dark);
+}
+
+#menu-feedback-form button[type="submit"] {
+  background: var(--peach-dark);
+  color: var(--text-light);
+  border: none;
+  border-radius: 20px;
+  padding: 0.7rem 2rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-top: 0.7rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+#menu-feedback-form button[type="submit"]:hover {
+  background: var(--peach-main);
+  color: var(--text-dark);
+}
+
+#menu-vote-results {
+  margin-top: 1rem;
+  min-height: 40px;
+  /* You can add more styles for the bar graph here */
+}
+
+/* Meal Share Section */
+.mealshare-section {
+  max-width: 900px;
+  margin: 2.5rem auto;
+  padding: 0 1rem;
+}
+
+.mealshare-header {
+  color: var(--peach-dark);
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  font-weight: bold;
+}
+
+#meals-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  margin-top: 1.5rem;
+}
+
+.meals-list-item {
+  background: var(--peach-cream);
+  border-radius: 14px;
+  box-shadow: 0 2px 8px rgba(246, 126, 125, 0.10);
+  padding: 1.1rem 1.7rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 1.1rem;
+  color: var(--text-dark);
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.meals-list-item:hover {
+  box-shadow: 0 6px 24px rgba(246, 126, 125, 0.18);
+  transform: translateY(-3px) scale(1.02);
+}
+
+.meals-list-item strong {
+  color: var(--peach-dark);
+  font-weight: 600;
+}
+
+.claim-meal-btn,
+.cancel-meal-btn {
+  background: var(--peach-main);
+  color: var(--text-light);
+  border: none;
+  border-radius: 18px;
+  padding: 0.5rem 1.3rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  margin-left: 1rem;
+  transition: background 0.2s, color 0.2s;
+}
+
+.claim-meal-btn:hover,
+.cancel-meal-btn:hover {
+  background: var(--peach-dark);
+  color: var(--text-light);
+}
+
+.mealshare-empty {
+  text-align: center;
+  color: var(--peach-dark);
+  font-size: 1.1rem;
+  margin-top: 2rem;
+}
+
+/* Offer a Meal Button */
+.offer-meal-main-btn {
+  display: inline-block;
+  background: var(--peach-dark);
+  color: var(--text-light);
+  border: none;
+  border-radius: 24px;
+  padding: 0.8rem 2.2rem;
+  font-size: 1.15rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  margin-top: 0.5rem;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(246, 126, 125, 0.10);
+  transition: background 0.2s, color 0.2s, transform 0.15s;
+}
+
+.offer-meal-main-btn:hover {
+  background: var(--peach-main);
+  color: var(--text-dark);
+  transform: scale(1.04);
+}
+
+/* Responsive */
+@media (max-width: 800px) {
+  .dashboard-features {
+    flex-direction: column;
+    align-items: center;
+  }
+  .dashboard-links {
+    flex-direction: column;
+    align-items: center;
+  }
+  .navbar {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .menu-card {
+    padding: 1rem 0.7rem;
+  }
+  .menu-feedback {
+    padding: 0 0.2rem;
+  }
+  .menu-list {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .menu-feedback-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.7rem;
+  }
+  .mealshare-section {
+    padding: 0 0.2rem;
+  }
+  #meals-list {
+    gap: 0.7rem;
+  }
+  .meals-list-item {
+    padding: 0.8rem 0.7rem;
+    font-size: 1rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.7rem;
+  }
+}
+
+/* Responsive Navbar */
+@media (max-width: 768px) {
+  .navbar {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0 4px;
+    height: 60px;
+  }
+
+  .navbar-logo {
+    position: absolute;
+    left: 16px;
+    top: 16px;
+    margin: 0;
+    
+  }
+
+  #hamburger-btn {
+    display: block !important;
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-left: auto;
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    z-index: 200;
+  }
+  .hamburger-bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px 0;
+    background: #333;
+    border-radius: 2px;
+    transition: 0.3s;
+  }
+  .navbar-links {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    background: #fff;
+    position: absolute;
+    top: 60px; /* Adjust based on your header height */
+    left: 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    z-index: 100;
+  }
+  .navbar-links.active {
+    display: flex;
+  }
+}
+@media (min-width: 769px) {
+  #hamburger-btn {
+    display: none !important;
+  }
+  .navbar-links {
+    display: flex !important;
+    flex-direction: row;
+    position: static;
+    background: none;
+    box-shadow: none;
+    width: auto;
+  }
+}

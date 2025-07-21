@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Spoonify - Menu Feedback</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="voting.css">
 </head>
 <body>
   <div id="signin-modal" class="modal-overlay" style="display:none;">
@@ -131,6 +132,26 @@
         <button id="cancel-btn" class="feature-link animated-card">Cancel</button>
       </div>
     </section>
+    <!-- Voting Section -->
+<div class="card menu-card" id="menu-voting-section">
+  <h3>Vote for Your Favorite Dish</h3>
+  <form id="menu-voting-form">
+    <label>
+      <input type="radio" name="vote-dish" value="Poha" required> Poha
+    </label>
+    <label>
+      <input type="radio" name="vote-dish" value="Paneer Butter Masala"> Paneer Butter Masala
+    </label>
+    <label>
+      <input type="radio" name="vote-dish" value="Dal Tadka"> Dal Tadka
+    </label>
+    <label>
+      <input type="radio" name="vote-dish" value="Gulab Jamun"> Gulab Jamun
+    </label>
+    <button type="submit">Vote</button>
+  </form>
+  <div id="voting-results"></div>
+</div>
   </main>
   <div id="qr-modal" class="modal-overlay" style="display: none;">
     <div class="modal-card">
@@ -141,6 +162,7 @@
   </div>
   <script src="qrcode.min.js"></script>
   <script src="app.js"></script>
+  <script src="voting.js"></script>
   <script>
     document.getElementById('offer-btn').onclick = function() {
       window.location.href = 'offer.html'; // Make sure offer.html exists

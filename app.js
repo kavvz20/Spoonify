@@ -440,7 +440,56 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 
-// ...existing code...
+// --- Menu Feedback (Breakfast, Lunch, Dinner) ---
+if (window.location.pathname.endsWith('menu.html')) {
+  document.addEventListener('DOMContentLoaded', function() {
+    // For each meal type
+    ['breakfast', 'lunch', 'dinner'].forEach(function(meal) {
+      const ratingButtons = document.querySelectorAll('.rating-buttons[data-meal="' + meal + '"] button');
+      let selectedRating = null;
+      // Restore previous rating if exists
+      const feedback = JSON.parse(localStorage.getItem('menu_feedback_' + meal) || 'null');
+      if (feedback && feedback.rating) {
+        ratingButtons.forEach(btn => {
+          if (parseInt(btn.getAttribute('data-rating')) === feedback.rating) {
+            btn.classList.add('selected');
+            selectedRating = feedback.rating;
+          }
+        });
+        // Restore suggestion
+        const suggestionInput = document.querySelector('.menu-suggestion[data-meal="' + meal + '"]');
+        if (suggestionInput && feedback.suggestion) {
+          suggestionInput.value = feedback.suggestion;
+        }
+      }
+      ratingButtons.forEach(btn => {
+        btn.addEventListener('click', function() {
+          ratingButtons.forEach(b => b.classList.remove('selected'));
+          btn.classList.add('selected');
+          selectedRating = parseInt(btn.getAttribute('data-rating'));
+        });
+      });
+    });
+    // Handle form submit
+    const form = document.getElementById('menu-feedback-form');
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      ['breakfast', 'lunch', 'dinner'].forEach(function(meal) {
+        const ratingBtn = document.querySelector('.rating-buttons[data-meal="' + meal + '"] button.selected');
+        const suggestionInput = document.querySelector('.menu-suggestion[data-meal="' + meal + '"]');
+        const rating = ratingBtn ? parseInt(ratingBtn.getAttribute('data-rating')) : null;
+        const suggestion = suggestionInput ? suggestionInput.value.trim() : '';
+        if (rating) {
+          localStorage.setItem('menu_feedback_' + meal, JSON.stringify({ rating, suggestion }));
+        }
+      });
+      alert('Thank you for your feedback!');
+      form.reset();
+      // Remove selected class after reset
+      document.querySelectorAll('.rating-buttons button').forEach(btn => btn.classList.remove('selected'));
+    });
+  });
+}
 
 document.addEventListener('DOMContentLoaded', function() {
   const offerForm = document.getElementById('offer-meal-form');
@@ -552,4 +601,46 @@ function renderWasteChart() {
 
 // Call on page load
 document.addEventListener('DOMContentLoaded', renderWasteChart);
+
+// --- Dashboard Feedback Display ---
+if (window.location.pathname.endsWith('index.html')) {
+  document.addEventListener('DOMContentLoaded', function() {
+    let totalRating = 0;
+    let ratingCount = 0;
+
+    ['breakfast', 'lunch', 'dinner'].forEach(function(meal) {
+      const feedback = JSON.parse(localStorage.getItem('menu_feedback_' + meal) || 'null');
+      const feedbackDiv = document.getElementById('stat-' + meal + '-feedback');
+      
+      if (feedbackDiv) {
+        if (feedback && feedback.rating) {
+          // Add to average calculation
+          totalRating += feedback.rating;
+          ratingCount++;
+          
+          // Display individual feedback
+          let stars = '⭐'.repeat(feedback.rating);
+          let suggestion = feedback.suggestion ? ' — ' + feedback.suggestion : '';
+          feedbackDiv.textContent = stars + suggestion;
+        } else {
+          feedbackDiv.textContent = '-';
+        }
+      }
+    });
+
+    // Calculate and display overall rating in "Today's Menu Rating"
+    const overallRatingDiv = document.getElementById('stat-menu-rating');
+    if (overallRatingDiv) {
+      if (ratingCount > 0) {
+        const averageRating = totalRating / ratingCount;
+        const roundedRating = Math.round(averageRating);
+        let stars = '⭐'.repeat(roundedRating);
+        // Show stars and the average value
+        overallRatingDiv.innerHTML = `${stars} <span style="font-size: 0.8em; color: var(--text-dark);">(${averageRating.toFixed(1)}/5)</span>`;
+      } else {
+        overallRatingDiv.textContent = '-';
+      }
+    }
+  });
+}
 

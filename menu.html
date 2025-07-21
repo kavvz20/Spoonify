@@ -101,16 +101,45 @@
       
       <form id="menu-feedback-form" class="card">
         <h3>Rate Today's Food</h3>
-        <div class="rating-buttons">
-          <button type="button" data-rating="1">😞</button>
-          <button type="button" data-rating="2">😐</button>
-          <button type="button" data-rating="3">😊</button>
-          <button type="button" data-rating="4">😋</button>
-          <button type="button" data-rating="5">🤩</button>
+        <div class="meal-feedback-section" id="breakfast-feedback">
+          <h4>Breakfast</h4>
+          <div class="rating-buttons" data-meal="breakfast">
+            <button type="button" data-rating="1">😞</button>
+            <button type="button" data-rating="2">😐</button>
+            <button type="button" data-rating="3">😊</button>
+            <button type="button" data-rating="4">😋</button>
+            <button type="button" data-rating="5">🤩</button>
+          </div>
+          <label>Suggestion (max 100 chars):
+            <input type="text" class="menu-suggestion" data-meal="breakfast" maxlength="100" placeholder="How can we improve breakfast?">
+          </label>
         </div>
-        <label>Suggestion (max 100 chars):
-          <input type="text" id="menu-suggestion" maxlength="100" placeholder="How can we improve?">
-        </label>
+        <div class="meal-feedback-section" id="lunch-feedback">
+          <h4>Lunch</h4>
+          <div class="rating-buttons" data-meal="lunch">
+            <button type="button" data-rating="1">😞</button>
+            <button type="button" data-rating="2">😐</button>
+            <button type="button" data-rating="3">😊</button>
+            <button type="button" data-rating="4">😋</button>
+            <button type="button" data-rating="5">🤩</button>
+          </div>
+          <label>Suggestion (max 100 chars):
+            <input type="text" class="menu-suggestion" data-meal="lunch" maxlength="100" placeholder="How can we improve lunch?">
+          </label>
+        </div>
+        <div class="meal-feedback-section" id="dinner-feedback">
+          <h4>Dinner</h4>
+          <div class="rating-buttons" data-meal="dinner">
+            <button type="button" data-rating="1">😞</button>
+            <button type="button" data-rating="2">😐</button>
+            <button type="button" data-rating="3">😊</button>
+            <button type="button" data-rating="4">😋</button>
+            <button type="button" data-rating="5">🤩</button>
+          </div>
+          <label>Suggestion (max 100 chars):
+            <input type="text" class="menu-suggestion" data-meal="dinner" maxlength="100" placeholder="How can we improve dinner?">
+          </label>
+        </div>
         <button type="submit">Submit Feedback</button>
       </form>
       <div class="card">

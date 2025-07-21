@@ -371,15 +371,25 @@ body {
   height: 48px;
   font-size: 1.7rem;
   cursor: pointer;
-  transition: background 0.2s, border 0.2s, transform 0.15s;
+  transition: background 0.2s, border 0.2s, transform 0.15s, box-shadow 0.2s;
   outline: none;
+  box-shadow: 0 2px 8px rgba(246, 126, 125, 0.10);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 0.2rem;
 }
-
 .rating-buttons button:hover,
 .rating-buttons button.selected {
   background: var(--peach-main);
   border-color: var(--peach-dark);
-  transform: scale(1.12);
+  transform: scale(1.12) rotate(-6deg);
+  box-shadow: 0 4px 16px rgba(246, 126, 125, 0.18);
+}
+.rating-buttons button:active {
+  transform: scale(0.98) rotate(2deg);
+  background: var(--peach-dark);
+  border-color: var(--peach-main);
 }
 
 #menu-feedback-form label {

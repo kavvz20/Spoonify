@@ -74,6 +74,8 @@
 
     // Show initial balance
     document.addEventListener('DOMContentLoaded', function() {
+      let userBalance = localStorage.getItem('userBalance') || 500;
+      userBalance = parseInt(userBalance, 10);
       document.getElementById('balance-message').textContent = "Current Balance: ₹" + userBalance;
     });
 
@@ -107,11 +109,18 @@
       } else if (diffHrs < 0) {
         message = "Meal time has already passed. Cannot cancel.";
       } else {
-        userBalance -= 70;
+        let userBalance = localStorage.getItem('userBalance') || 500;
+        userBalance = parseInt(userBalance, 10) - 70;
+        localStorage.setItem('userBalance', userBalance);
+
+        let userFine = localStorage.getItem('userFine') || 0;
+        userFine = parseInt(userFine, 10) + 70;
+        localStorage.setItem('userFine', userFine);
         message = "₹70 has been deducted as the meal was not canceled at least 2 hours before meal time.";
       }
       document.getElementById('deduction-message').textContent = message;
-      document.getElementById('balance-message').textContent = "Current Balance: ₹" + userBalance;
+      let updatedBalance = localStorage.getItem('userBalance') || 500;
+      document.getElementById('balance-message').textContent = "Current Balance: ₹" + updatedBalance;
     });
   </script>
   <script src="qrcode.min.js"></script>

@@ -19,7 +19,7 @@
   margin-top: 1rem;
 }
 .voting-bar {
-  background: #2196f3;
+  background: red !important;;
   color: #fff;
   padding: 0.2rem 0.5rem;
   margin: 0.2rem 0;
